@@ -1,0 +1,31 @@
+body{
+    background-color: #5C7070;
+    font-family: "helvetica", sans-serif;
+}
+
+h1{
+  color: #FF6600;
+  text-align: center;
+}
+
+a:link, a:visited{
+  text-decoration: none;
+  color: #FF6600;
+}
+
+p{
+  color: black;
+  text-align: center;
+}
+
+#container{
+  margin-left: auto;
+  margin-right: auto;
+  width: 500px;
+  height: 600px;
+  padding: 20px;
+  border: 5px solid black;
+  margin 0;
+  background-color: white;
+  opacity: 0.85;
+}
