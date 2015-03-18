@@ -1,6 +1,3 @@
-var urlencode = require('urlencode');
-var json = require('json-middleware');
-
 var express = require("express"),
     app = express(),
     bodyParser = require('body-parser'),
@@ -13,10 +10,9 @@ app.get("/", function (req, res) {
   res.redirect("/index.html");
 });
 
-var db = require('mongoskin').db('mongodb://user:password@localhost:27017/todo');
+var db = require('mongoskin').db('mongodb://user:password@localhost:27017/photos');
 console.log(db);
 
-var todos = [];
 
 app.get("/addtodo", function (req, res) {
 	var x = req.query;
@@ -37,7 +33,7 @@ app.get("/addtodo", function (req, res) {
  			res.end("done");
  		}
  	}
-	
+
 	db.collection("todo").findOne({todoid: x.todoid}, function(err, result1) {
 		if(result1){
 			console.log(result1);
@@ -48,11 +44,11 @@ app.get("/addtodo", function (req, res) {
 			db.collection("todo").insert(x, callback);
 		}
 	});
-	
+
   });
 
-  
-  
+
+
 
 app.get("/deletetodo", function (req, res) {
 	var index = req.query.index;
@@ -92,7 +88,6 @@ var fs = require('fs');
 var AWS = require('aws-sdk');
 AWS.config.loadFromPath('./credentials.json');
 var s3 = new AWS.S3()//.client;
-console.log(s3)
 
 var multipart = require('connect-multiparty');
 var multipartMiddleware = multipart();
@@ -105,7 +100,7 @@ app.post('/uploadFile', function(req, res){
      var fileType =  req.files.input.type;
      var tmpPath = req.files.input.path;
      var s3Path = '/' + intname;
-                            
+
      fs.readFile(tmpPath, function (err, data) {
          var params = {
              Bucket:'ameweb',
