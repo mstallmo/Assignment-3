@@ -89,6 +89,15 @@ function addNew()
 
 
       fd.append('fileInput', fileInput);
+
+			var fordb = {
+				id: "photo" + new Date().getTime().toString(),
+				name: "Untitled",
+				url: "https://s3.amazonaws.com/ameweb/" + fileInput
+			};
+
+			fd.append('fordb', fordb);
+
       var xhr = new XMLHttpRequest();
       xhr.onreadystatechange = function() {
           if (xhr.readyState != 4) { return; }

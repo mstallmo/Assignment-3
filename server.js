@@ -96,8 +96,7 @@ app.use('/uploadFile', multipartMiddleware);
 app.post('/uploadFile', function(req, res){
     console.log(req.body);
      var intname = req.body.fileInput;
-     var filename = req.files.input.name;
-     var fileType =  req.files.input.type;
+     var fordb = req.body.fordb;
      var tmpPath = req.files.input.path;
      var s3Path = '/' + intname;
 
@@ -108,8 +107,14 @@ app.post('/uploadFile', function(req, res){
              Key:intname,
              Body: data
          };
-         s3.putObject(params, function(err, data) {
-             console.log(err);
+         s3.putObject(params, function(err1, data) {
+             if(data){
+               db.collection("data").insert(fordb, function(err2, result){
+                 if(result){
+                   res.end("success");
+                 }
+               });
+             }
              res.end("success");
          });
      });
