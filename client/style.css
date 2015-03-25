@@ -1,0 +1,19 @@
+body{
+  background-color: black;
+}
+
+h1 {
+  color: white;
+}
+
+div {
+  color: white;
+}
+
+a {
+  color: grey;
+}
+
+img{
+  display: block;
+}

@@ -6,6 +6,7 @@
 	<script src="jquery-1.11.0.min.js"></script>
 	<script src="lightbox.min.js"></script>
 	<link href="lightbox.css" rel="stylesheet" />
+	<link href="style.css" rel="stylesheet" />
 
 	<script>
 	/*
@@ -123,9 +124,10 @@ function addNew()
 		   var output = "";
 		   for(var i=0; i < list.length; i++){
 			   output = output + "<p>" + list[i].name + "</p>";
-			   output = output + "<a href=" + list[i].url + " data-lightbox=" + list[i].name + ">" + "View</a>";
+			   output = output + "<a href=" + list[i].url + " data-lightbox='user' >" + "<img src='" + list[i].url +
+				"' height= '60%' width= '60%'>" + "</a>";
 			   output = output + "<a href='javascript:renamePhoto(" + i + ")'>" + "Rename</a>";
-				 output = output + "<a href='javascript:deletePhoto(" + list[i].id.toString() + ")'" + "Delete</a>";
+				 output = output + "<a href='javascript:deletePhoto(" + i + ")'>" + "Delete</a>";
 			   output = output + "<hr>";
 		   }
 		   document.getElementById("list").innerHTML = output;
@@ -138,8 +140,9 @@ function addNew()
 
 	}
 
-   function deletePhoto(index){
-	   var url = "./deletetodo?index=" + encodeURIComponent(index);
+   function deletePhoto(i){
+		 var id = allPhotos[i].id;
+	   var url = "./deletephoto?id=" + encodeURIComponent(id);
 	   var callback = function(data){
 		   if(data === "deleted"){
 			   updateList();
@@ -182,7 +185,7 @@ function addNew()
     <input type='file' id='fileUpload' onchange='addNew()'>
 	<hr>
 	<div id="list">
-		list is empty
+		No Photos
 	</div>
 </body>
 

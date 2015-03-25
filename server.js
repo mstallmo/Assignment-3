@@ -50,15 +50,15 @@ app.get("/addtodo", function (req, res) {
 
 
 
-app.get("/deletetodo", function (req, res) {
-	var index = req.query.index;
+app.get("/deletephoto", function (req, res) {
+	var id = req.query.id;
 	var callback = function(error, result){
 		if(result)
 		{
 			res.end("deleted");
 		}
 	}
-	db.collection("todo").remove({"todoid": index.toString()}, callback);
+	db.collection("data").remove({"id": id}, callback);
 });
 
 
