@@ -5,15 +5,22 @@ body{
 h1 {
   color: white;
 }
-
-div {
-  color: white;
-}
-
 a {
   color: grey;
 }
 
+div #list {
+  margin: 5px;
+  padding: 5px;
+  border: 1px;
+  height: auto;
+  width: auto;
+  float: left;
+  text-align: center;
+}
+
 img{
-  display: block;
+  display: inline;
+    margin: 5px;
+    border: 1px solid #ffffff;
 }
