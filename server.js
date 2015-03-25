@@ -25,7 +25,7 @@ app.get("/addtodo", function (req, res) {
 	db.collection("todo").insert(x, callback);
  });
 
- app.get("/edittodo", function (req, res) {
+ app.get("/renamephoto", function (req, res) {
  	var x = req.query;
  	var callback = function(error, result){
  		if(result)
@@ -34,14 +34,14 @@ app.get("/addtodo", function (req, res) {
  		}
  	}
 
-	db.collection("todo").findOne({todoid: x.todoid}, function(err, result1) {
+	db.collection("data").findOne({id: x.id}, function(err, result1) {
 		if(result1){
 			console.log(result1);
-			result1.newtodo = x.newtodo;
-			db.collection("todo").save(result1, callback);
+			result1.name = x.name;
+			db.collection("data").save(result1, callback);
 		}
 		else{
-			db.collection("todo").insert(x, callback);
+			db.collection("data").insert(x, callback);
 		}
 	});
 
@@ -62,8 +62,8 @@ app.get("/deletetodo", function (req, res) {
 });
 
 
-app.get("/listtodos", function (req, res) {
-	db.collection("todo").find().toArray(function(err, result) {
+app.get("/listphotos", function (req, res) {
+	db.collection("data").find().toArray(function(err, result) {
     	if (result)
     	{
 			res.end(JSON.stringify(result));
@@ -94,9 +94,16 @@ var multipartMiddleware = multipart();
 app.use('/uploadFile', multipartMiddleware);
 
 app.post('/uploadFile', function(req, res){
-    console.log(req.body);
      var intname = req.body.fileInput;
-     var fordb = req.body.fordb;
+     var fordb = JSON.parse(decodeURIComponent(req.body.fordb));
+     console.log(JSON.stringify(fordb));
+
+     db.collection("data").insert(fordb, function(err2, result){
+         if(result){
+             res.end("success");
+         }
+     });
+
      var tmpPath = req.files.input.path;
      var s3Path = '/' + intname;
 
@@ -107,19 +114,10 @@ app.post('/uploadFile', function(req, res){
              Key:intname,
              Body: data
          };
-         s3.putObject(params, function(err1, data) {
-             if(data){
-               db.collection("data").insert(fordb, function(err2, result){
-                 if(result){
-                   res.end("success");
-                 }
-               });
-             }
-             res.end("success");
-         });
-     });
-});
+         s3.putObject(params, function(err1, data) {});
+		 });
 
+});
 
 console.log("Simple static server listening at http://" + hostname + ":" + port);
 app.listen(port, hostname);
