@@ -7,6 +7,9 @@
 	<script src="lightbox.min.js"></script>
 	<link href="lightbox.css" rel="stylesheet" />
 	<link href="style.css" rel="stylesheet" />
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+
 
 	<script>
 	/*
@@ -124,8 +127,8 @@ function addNew()
 		   var output = "";
 		   for(var i=0; i < list.length; i++){
 			   output = output + "<p>" + list[i].name + "</p>";
-			   output = output + "<a href=" + list[i].url + " data-lightbox='user' >" + "<img src='" + list[i].url +
-				"' height= '60%' width= '60%'>" + "</a>";
+			   output = output + "<div class = 'col-xs-6 col-md-3'>"+"<a class = 'thumbnail' href=" + list[i].url + " data-lightbox='user' >" + "<img id='test' class='img-rounded' src='" + list[i].url +
+				"'>" + "</a>" + "</div>";
 			   output = output + "<a href='javascript:renamePhoto(" + i + ")'>" + "Rename</a>";
 				 output = output + "<a href='javascript:deletePhoto(" + i + ")'>" + "Delete</a>";
 			   output = output + "<hr>";
@@ -184,7 +187,9 @@ function addNew()
 	<h1> Photo Uploader </h1>
     <input type='file' id='fileUpload' onchange='addNew()'>
 	<hr>
-	<div id="list">
+	<div class="row">
+		<div id="list">
+		</div>
 	</div>
 </div>
 </body>
